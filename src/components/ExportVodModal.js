@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-function ExportVodModal({ isOpen, onClose, onSubmit, videoUrl, thumbnailUrl, videoTime }) {
-  const [videoTitle, setVideoTitle] = useState("");
+function ExportVodModal({ isOpen, onClose, onSubmit, videoUrl, thumbnailUrl, videoTime, defaultTitle = "" }) {
+  const [videoTitle, setVideoTitle] = useState(defaultTitle);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -11,6 +11,12 @@ function ExportVodModal({ isOpen, onClose, onSubmit, videoUrl, thumbnailUrl, vid
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setVideoTitle(defaultTitle || "");
+    }
+  }, [defaultTitle, isOpen]);
 
   if (!isOpen) return null;
 

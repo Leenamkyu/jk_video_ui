@@ -7,7 +7,7 @@ import RagTab from "./components/RagTab";
 
 /* 🟣 상단 전역 Progress Bar */
 function GlobalProgressBar() {
-  const { highlightStatus, ragStatus } = useSharedVideo();
+  const { highlightStatus, ragStatus, fetchAnalyzeFromServer } = useSharedVideo();
   const isActive = highlightStatus === "running" || ragStatus === "running";
 
   return (
@@ -69,6 +69,7 @@ function RightSidebar() {
     clearVideoData,
     refreshFlag,
     getHighlightResult,   // 🔥 하이라이트 결과 조회 추가
+    fetchAnalyzeFromServer 
   } = useSharedVideo();
 
   const [videos, setVideos] = useState([]);
