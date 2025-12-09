@@ -52,7 +52,8 @@ function VideoUploadSection() {
       method: "POST",
       body: fd,
     });
-
+    
+    
     const { presigned_post, key } = await resp.json();
 
     // S3에 업로드
