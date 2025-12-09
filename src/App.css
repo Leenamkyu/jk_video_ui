@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes slideInFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.animate-slideInFade {
+  animation: slideInFade 0.35s ease-out;
+}
