@@ -52,8 +52,7 @@ function VideoUploadSection() {
       method: "POST",
       body: fd,
     });
-    
-    
+
     const { presigned_post, key } = await resp.json();
 
     // S3에 업로드
@@ -89,7 +88,7 @@ function VideoUploadSection() {
       setAnalyzeStatus("analyzing");
       const formData = new FormData();
       formData.append("video_url", videoUrl);
-      const resp = await fetch(`${API_BASE_URL}/upload-youtube`, {
+      const resp = await fetch(`http://127.0.0.1:8000/upload-youtube`, {
         method: "POST",
         body: formData,
       });
