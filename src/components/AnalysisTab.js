@@ -15,13 +15,25 @@ function AnalysisTab() {
     if (!sharedVideoUrl) return;
 
     const cached = analyzeCache?.[sharedVideoUrl];
-    const source = cached || videoMeta;
+    const meta = videoMeta;
 
-    if (!source) return;
+    // 1) STT 구간: /analyze 결과 우선, 없으면 list_videos 의 segments
+    const segs = cached?.segments || meta?.segments || [];
+    setSegments(segs);
 
-    setSegments(source.segments || []);
-    setSummaryTitle(source.summary_title || "🎬 분석 결과 요약");
-    setSummaryPoints(source.summary_points || []);
+    // 2) 요약 제목: /analyze 에 있으면 그거, 없으면 list_videos 의 summary_title
+    const title =
+      (cached && cached.summary_title) ??
+      (meta && meta.summary_title) ??
+      "🎬 분석 결과 요약";
+    setSummaryTitle(title);
+
+    // 3) 요약 포인트: /analyze → list_videos → 빈 배열
+    const points =
+      (cached && cached.summary_points) ??
+      (meta && meta.summary_points) ??
+      [];
+    setSummaryPoints(points);
   }, [sharedVideoUrl, analyzeCache, videoMeta]);
 
   // ✅ 2️⃣ 영상 시간에 맞춰 현재 STT 구간 업데이트
